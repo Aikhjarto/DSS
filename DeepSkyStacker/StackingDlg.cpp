@@ -1887,7 +1887,8 @@ namespace DSS
 		QFileDialog			fileDialog;
 
 		directory = settings.value("Folders/ListFolder").toString();
-		const auto filterIndex = settings.value("Folders/ListIndex", uint(0)).toUInt();
+		auto filterIndex = settings.value("Folders/ListIndex", int(0)).toInt();
+		if (filterIndex < 0) {filterIndex = 0;}
 		extension = settings.value("Folders/ListExtension").toString();
 
 		if (extension.isEmpty())
@@ -1987,7 +1988,8 @@ namespace DSS
 		//
 		const fs::path defaultName = this->fileList.empty() ? LightframeFolder() : fileList;
 
-		const auto filterIndex = settings.value("Folders/ListIndex", uint(0)).toUInt();
+		auto filterIndex = settings.value("Folders/ListIndex", int(0)).toInt();
+		if (filterIndex < 0) {filterIndex = 0;}
 
 		ZTRACE_RUNTIME("About to show file save dlg");
 		QString selectedFilter;

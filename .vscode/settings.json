@@ -1,0 +1,8 @@
+{
+    "cmake.configureArgs": [
+           "-DLIBRAW_PATH=${workspaceFolder}/LibRaw/",
+           "-DCMAKE_CXX_FLAGS=-I/usr/include/cfitsio/",
+           "-DCMAKE_CXX_FLAGS=-I${workspaceFolder}/smtpclient/src"
+    ]
+}
+

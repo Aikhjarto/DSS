@@ -862,7 +862,8 @@ bool CTIFFWriter::Open()
 #ifdef Q_OS_WIN
 	m_tiff = TIFFOpenW(file.wstring().c_str(), "w");
 #else
-	m_tiff = TIFFOpen(reinterpret_cast<const char*>(file.u8string().c_str()), "w");
+	std::string file_string {file.string()};
+	m_tiff = TIFFOpen(file_string.c_str(), "w");
 #endif
 	if (m_tiff != nullptr)
 	{
@@ -1074,7 +1075,7 @@ bool CTIFFWriter::Open()
 			if (cfa)
 			{
 				constexpr uint16_t count = sizeof(cfaDimPat.dim) + sizeof(cfaDimPat.cfa.cfa4);
-				TIFFSetField(m_tiff, EXIFTAG_CFAPATTERN, count, cfaDimPat);
+				TIFFSetField(m_tiff, EXIFTAG_CFAPATTERN, count, &cfaDimPat);
 			}
 			
 			//

@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
+
+if(WIN32)
 set(CMAKE_TOOLCHAIN_FILE 
 	"$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 	)
 
-if(WIN32)
 set(VCPKG_TARGET_TRIPLET
 	"x64-windows-static-md"
 	CACHE STRING "")
@@ -69,7 +70,7 @@ find_package(Qt6 6.8.2 REQUIRED COMPONENTS Core Gui Widgets Network Charts DBus 
 #set(cfitsio_DIR "/usr/local/lib/cfitsio-4.5.0/")
 find_package(cfitsio 4.5.0 REQUIRED)
 find_package(boost_container CONFIG REQUIRED)
-find_package(boost_interprocess CONFIG REQUIRED)
+#find_package(boost_interprocess CONFIG REQUIRED)
 if (APPLE)
 find_package(Iconv REQUIRED)
 find_package(CURL REQUIRED)
@@ -77,7 +78,7 @@ endif()
 find_package(exiv2 CONFIG REQUIRED)
 find_package(expat CONFIG REQUIRED)
 find_package(TIFF 4.7 REQUIRED)
-find_package(libraw CONFIG REQUIRED)
+#find_package(libraw CONFIG REQUIRED)
 if(NOT WIN32)
 find_package(OpenMP REQUIRED)
 find_package (Threads REQUIRED)
@@ -109,7 +110,7 @@ if (APPLE)
 	set(CMAKE_CXX_FLAGS "-Wno-switch-enum -Wno-switch")
 endif()
 if(LINUX)
-	set(CMAKE_CXX_FLAGS "-Wno-ignored-attributes -msse -msse2 -mfpmath=sse -pthread")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/include/cfitsio/ -I/home/thomas/src/DSS_linux/smtpmime/src -Wno-ignored-attributes -mavx -mavx2 -mfma -mtune=native -mfpmath=sse -pthread")
 endif()
 
 #[=[
@@ -137,6 +138,9 @@ add_subdirectory(ZClass)
 add_subdirectory(DeepSkyStacker)
 add_subdirectory(DeepSkyStackerCL)
 add_subdirectory(DeepSkyStackerLive)
+add_subdirectory(LibRaw-cmake)
+add_subdirectory(smtpmime)
+
 #[=[
 add_subdirectory(DeepSkyStackerTest)
 ]=]

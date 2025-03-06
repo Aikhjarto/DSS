@@ -2,7 +2,7 @@
 #include "DeepSkyStackerLive.h"
 #include "LiveSettings.h"
 #include "EmailSettings.h"
-#include <smtpmime/SmtpMime>
+#include <SmtpMime>
 
 namespace DSS
 {
